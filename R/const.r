@@ -1,3 +1,6 @@
+#' The list of effects.
+#'
+#' @export
 categories_effects <- c(
   "Aroused",
   "Hungry",
@@ -14,6 +17,9 @@ categories_effects <- c(
   "Sleepy"
 )
 
+#' The list of cnoids.
+#'
+#' @export
 categories_cnoids <- c(
   "D9",
   "THCV",

@@ -1,8 +1,24 @@
 source("R/const.r")
 source("R/values_gen.r")
+source("R/util.r")
+source("R/bounds.r")
 
+#' Generates a radar graph.
+#'
+#' @param values      The y-coordinates.
+#' @param categories  The x-coordinates.
+#' @param bounds      A collection of the min and max bound.
+#' @return            The radar graph.
+#' @examples
+#' radar(
+#'   c(100, 0, 0, 0),
+#'   c("A", "B", "C", "D"),
+#'   c(0, 100)
+#' )
+#'
+#' @export
 #' @import plotly
-generate_graph <- function(values, categories, bounds) {
+radar <- function(values, categories, bounds) {
   # Repeat the first value to close the loop
   values <- c(values, values[1])
   categories <- c(categories, categories[1])
@@ -38,61 +54,26 @@ generate_graph <- function(values, categories, bounds) {
   fig
 }
 
+#' Generates a radar graph animation between two values.
+#'
+#' @param frames        The number of frames to animate (60fps).
+#' @param start_values  The starting y-coordinates.
+#' @param end_values    The ending y-coordinates.
+#' @param categories    The x-coordinates.
+#' @param bounds        A collection of the min and max bound.
+#' @return              The radar graph animation.
+#' @examples
+#' radar_anim(
+#'   120,
+#'   c(100, 0, 0, 0),
+#'   c(25, 25, 25, 25),
+#'   c("A", "B", "C", "D"),
+#'   c(0, 100)
+#' )
+#'
+#' @export
 #' @import plotly
-generate_graph_inv <- function(params, bounds) {
-  values <- generate_values_inv(
-    params$aroused,
-    params$hungry,
-    params$energetic,
-    params$happy,
-    params$creative,
-    params$giggly,
-    params$uplifted,
-    params$focused,
-    params$talkative,
-    params$relaxed,
-    params$tingly,
-    params$euphoric,
-    params$sleepy
-  )
-
-  # Repeat the first value to close the loop
-  values <- c(values, values[1])
-  categories <- c(categories_cnoids, categories_cnoids[1])
-
-  # Mirror to match Google Sheets
-  values <- rev(values)
-  categories <- rev(categories)
-
-  fig <- plotly::plot_ly(
-    line = list(shape = "spline"),
-    type = "scatterpolar",
-    mode = "lines",
-    r = values,
-    theta = categories,
-    fill = "toself",
-  )
-
-  fig <- plotly::layout(
-    fig,
-    polar = list(
-      angularaxis = list(
-        rotation = 90,
-        direction = "counterclockwise"
-      ),
-      radialaxis = list(
-        visible = TRUE,
-        range = bounds
-      )
-    ),
-    showlegend = FALSE
-  )
-
-  fig
-}
-
-#' @import plotly
-generate_anim <- function(
+radar_anim <- function(
     frames,
     start_values,
     end_values,
@@ -171,47 +152,4 @@ generate_anim <- function(
   )
 
   fig
-}
-
-lerp <- function(start, end, fraction) {
-  (end - start) * fraction + start
-}
-
-find_true_graph_bounds <- function() {
-  all_values <- c(
-    generate_values(100, 0, 0, 0, 0, 0),
-    generate_values(0, 100, 0, 0, 0, 0),
-    generate_values(0, 0, 100, 0, 0, 0),
-    generate_values(0, 0, 0, 100, 0, 0),
-    generate_values(0, 0, 0, 0, 100, 0),
-    generate_values(0, 0, 0, 0, 0, 100)
-  )
-
-  c(
-    min(all_values),
-    max(all_values)
-  )
-}
-
-find_true_graph_bounds_inv <- function() {
-  all_values <- c(
-    generate_values_inv(100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0),
-    generate_values_inv(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100)
-  )
-
-  c(
-    min(all_values),
-    max(all_values)
-  )
 }

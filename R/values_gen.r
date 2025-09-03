@@ -1,4 +1,30 @@
-generate_values <- function(d9, thcv, cbd, cbn, cbg, cbc) {
+#' Calculates the effect values for the given cnoid profile.
+#'
+#' @param d9    D9 value.
+#' @param thcv  THCV value.
+#' @param cbd   CBD value.
+#' @param cbn   CBN value.
+#' @param cbg   CBG value.
+#' @param cbc   CBC value.
+#' @return      The effect values.
+#' @examples
+#' regress_cnoids_to_effects(
+#'   d9 = 100,
+#'   thcv = 0,
+#'   cbd = 0,
+#'   cbn = 0,
+#'   cbg = 0,
+#'   cbc = 0
+#' )
+#'
+#' @export
+regress_cnoids_to_effects <- function(
+    d9 = 0,
+    thcv = 0,
+    cbd = 0,
+    cbn = 0,
+    cbg = 0,
+    cbc = 0) {
   aroused <- d9 * 0.6092776818 +
     thcv * -0.216699913 +
     cbd * -0.2971006117 +
@@ -109,20 +135,54 @@ generate_values <- function(d9, thcv, cbd, cbn, cbg, cbc) {
   values
 }
 
-generate_values_inv <- function(
-    aroused,
-    hungry,
-    energetic,
-    happy,
-    creative,
-    giggly,
-    uplifted,
-    focused,
-    talkative,
-    relaxed,
-    tingly,
-    euphoric,
-    sleepy) {
+#' Calculates the cnoid values for the given effect profile.
+#'
+#' @param aroused     Aroused value.
+#' @param hungry      Hungry value.
+#' @param energetic   Energetic value.
+#' @param happy       Happy value.
+#' @param creative    Creative value.
+#' @param giggly      Giggly value.
+#' @param uplifted    Uplifted value.
+#' @param focused     Focused value.
+#' @param talkative   Talkative value.
+#' @param relaxed     Relaxed value.
+#' @param tingly      Tingly value.
+#' @param euphoric    Euphoric value.
+#' @param sleepy      Sleepy value.
+#' @return            The cnoid values.
+#' @examples
+#' regress_effects_to_cnoids(
+#'   aroused = 100,
+#'   hungry = 0,
+#'   energetic = 0,
+#'   happy = 0,
+#'   creative = 0,
+#'   giggly = 0,
+#'   uplifted = 0,
+#'   focused = 0,
+#'   talkative = 0,
+#'   relaxed = 0,
+#'   tingly = 0,
+#'   euphoric = 0,
+#'   sleepy = 0
+#' )
+#'
+#' @export
+regress_effects_to_cnoids <- function(
+    aroused = 0,
+    hungry = 0,
+    energetic = 0,
+    happy = 0,
+    creative = 0,
+    giggly = 0,
+    uplifted = 0,
+    focused = 0,
+    talkative = 0,
+    relaxed = 0,
+    tingly = 0,
+    euphoric = 0,
+    sleepy = 0) {
   d9 <- aroused * 0.6092776818 +
     hungry * 0.3406958573 +
     energetic * -0.05906933515 +
