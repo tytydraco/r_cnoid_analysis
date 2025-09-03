@@ -1,8 +1,6 @@
-source("values_gen.r")
-source("graphing.r")
-source("const.r")
-
-library(plotly)
+source("R/values_gen.r")
+source("R/graphing.r")
+source("R/const.r")
 
 ### NEEDS `find_true_graph_bounds()`
 anim_including_d9 <- function(frames, start_values, end_values) {

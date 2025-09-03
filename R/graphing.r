@@ -1,8 +1,7 @@
-source("const.r")
-source("values_gen.r")
+source("R/const.r")
+source("R/values_gen.r")
 
-library(plotly)
-
+#' @import plotly
 generate_graph <- function(values, categories, bounds) {
   # Repeat the first value to close the loop
   values <- c(values, values[1])
@@ -12,33 +11,34 @@ generate_graph <- function(values, categories, bounds) {
   values <- rev(values)
   categories <- rev(categories)
 
-  fig <- plot_ly(
+  fig <- plotly::plot_ly(
     line = list(shape = "spline"),
     type = "scatterpolar",
     mode = "lines",
     r = values,
     theta = categories,
-    fill = "toself"
+    fill = "toself",
   )
 
-  fig <- fig %>%
-    layout(
-      polar = list(
-        angularaxis = list(
-          rotation = 90,
-          direction = "counterclockwise"
-        ),
-        radialaxis = list(
-          visible = TRUE,
-          range = bounds
-        )
+  fig <- plotly::layout(
+    fig,
+    polar = list(
+      angularaxis = list(
+        rotation = 90,
+        direction = "counterclockwise"
       ),
-      showlegend = FALSE
-    )
+      radialaxis = list(
+        visible = TRUE,
+        range = bounds
+      )
+    ),
+    showlegend = FALSE
+  )
 
   fig
 }
 
+#' @import plotly
 generate_graph_inv <- function(params, bounds) {
   values <- generate_values_inv(
     params$aroused,
@@ -64,33 +64,34 @@ generate_graph_inv <- function(params, bounds) {
   values <- rev(values)
   categories <- rev(categories)
 
-  fig <- plot_ly(
+  fig <- plotly::plot_ly(
     line = list(shape = "spline"),
     type = "scatterpolar",
     mode = "lines",
     r = values,
     theta = categories,
-    fill = "toself"
+    fill = "toself",
   )
 
-  fig <- fig %>%
-    layout(
-      polar = list(
-        angularaxis = list(
-          rotation = 90,
-          direction = "counterclockwise"
-        ),
-        radialaxis = list(
-          visible = TRUE,
-          range = bounds
-        )
+  fig <- plotly::layout(
+    fig,
+    polar = list(
+      angularaxis = list(
+        rotation = 90,
+        direction = "counterclockwise"
       ),
-      showlegend = FALSE
-    )
+      radialaxis = list(
+        visible = TRUE,
+        range = bounds
+      )
+    ),
+    showlegend = FALSE
+  )
 
   fig
 }
 
+#' @import plotly
 generate_anim <- function(
     frames,
     start_values,
@@ -136,7 +137,7 @@ generate_anim <- function(
   df$frame <- factor(df$frame, levels = unique(df$frame))
   df$theta <- factor(df$theta, levels = unique(theta))
 
-  fig <- plot_ly(
+  fig <- plotly::plot_ly(
     data = df,
     type = "scatterpolar",
     mode = "lines",
@@ -145,21 +146,29 @@ generate_anim <- function(
     frame = ~frame,
     fill = "toself",
     line = list(shape = "spline")
-  ) %>%
-    layout(
-      polar = list(
-        angularaxis = list(
-          rotation = 90,
-          direction = "counterclockwise"
-        ),
-        radialaxis = list(
-          visible = TRUE,
-          range = bounds
-        )
+  )
+
+  fig <- plotly::layout(
+    fig,
+    polar = list(
+      angularaxis = list(
+        rotation = 90,
+        direction = "counterclockwise"
       ),
-      showlegend = FALSE
-    ) %>%
-    animation_opts(frame = 16.666666667, transition = 0, redraw = TRUE)
+      radialaxis = list(
+        visible = TRUE,
+        range = bounds
+      )
+    ),
+    showlegend = FALSE
+  )
+
+  fig <- plotly::animation_opts(
+    fig,
+    frame = 16.666666667,
+    transition = 0,
+    redraw = TRUE,
+  )
 
   fig
 }
