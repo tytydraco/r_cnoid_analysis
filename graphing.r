@@ -1,17 +1,9 @@
 source("const.r")
+source("values_gen.r")
 
 library(plotly)
 
-generate_graph <- function(params, bounds) {
-  values <- generate_values(
-    params$d9,
-    params$thcv,
-    params$cbd,
-    params$cbn,
-    params$cbg,
-    params$cbc,
-  )
-
+generate_graph <- function(values, categories, bounds) {
   # Repeat the first value to close the loop
   values <- c(values, values[1])
   categories <- c(categories, categories[1])
@@ -99,8 +91,17 @@ generate_graph_inv <- function(params, bounds) {
   fig
 }
 
-generate_anim <- function(frames, start_params, end_params, bounds) {
-  theta <- rev(c(categories_effects, categories_effects[1]))
+generate_anim <- function(
+    frames,
+    start_values,
+    end_values,
+    categories,
+    bounds) {
+  if (length(start_values) != length(end_values)) {
+    stop("start_values and end_values must have the same length")
+  }
+
+  theta <- rev(c(categories, categories[1]))
   all_r <- numeric()
   all_theta <- character()
   all_frame <- integer()
@@ -108,14 +109,15 @@ generate_anim <- function(frames, start_params, end_params, bounds) {
   for (i in seq_len(frames)) {
     frac <- if (frames == 1) 1 else (i - 1) / (frames - 1)
 
-    d9_i <- lerp(start_params$d9, end_params$d9, frac)
-    thcv_i <- lerp(start_params$thcv, end_params$thcv, frac)
-    cbd_i <- lerp(start_params$cbd, end_params$cbd, frac)
-    cbn_i <- lerp(start_params$cbn, end_params$cbn, frac)
-    cbg_i <- lerp(start_params$cbg, end_params$cbg, frac)
-    cbc_i <- lerp(start_params$cbc, end_params$cbc, frac)
+    vals <- c()
+    for (i in seq_along(start_values)) {
+      start_value <- start_values[i]
+      end_value <- end_values[i]
+      value <- lerp(start_value, end_value, frac)
 
-    vals <- generate_values(d9_i, thcv_i, cbd_i, cbn_i, cbg_i, cbc_i)
+      vals <- c(vals, value)
+    }
+
     vals <- c(vals, vals[1]) # close the radial loop
     vals <- rev(vals) # mirror values to match reversed theta
 
@@ -203,30 +205,4 @@ find_true_graph_bounds_inv <- function() {
     min(all_values),
     max(all_values)
   )
-}
-
-### NEEDS `find_true_graph_bounds()`
-anim_including_d9 <- function(frames, start_params, end_params) {
-  bounds <- find_true_graph_bounds()
-  generate_anim(frames, start_params, end_params, bounds)
-}
-
-### FOR NORMALIZATION:
-### - ON: compare effect profile, not intensity
-### - OFF: compare effect profile, with intensity
-###        (harder to read bc scale is 0-100)
-anim_cnoids <- function(frames, start_params, end_params) {
-  # Normalize...
-  normalize_params <- function(params) {
-    max_abs <- max(abs(unlist(params)))
-    if (max_abs == 0) {
-      return(params) # Avoid division by zero
-    }
-    lapply(params, function(x) x / max_abs)
-  }
-
-  norm_start_params <- normalize_params(start_params)
-  norm_end_params <- normalize_params(end_params)
-
-  generate_anim(frames, norm_start_params, norm_end_params, c(-1, 1))
 }
