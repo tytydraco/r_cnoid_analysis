@@ -48,8 +48,8 @@ end_params <- list(
 
 fig <- anim_including_d9(
   frames = 120,
-  start_values = c(100, 0, 0, 0, 0, 0),
-  end_values = c(80, 0, 5, 5, 10, 0)
+  start_values = generate_values(100, 0, 0, 0, 0, 0),
+  end_values = generate_values(80, 0, 5, 5, 10, 0)
 )
 
 # htmlwidgets::saveWidget(fig, "plt.html", selfcontained = TRUE)

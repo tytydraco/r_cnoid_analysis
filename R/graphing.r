@@ -107,8 +107,8 @@ generate_anim <- function(
   all_theta <- character()
   all_frame <- integer()
 
-  for (i in seq_len(frames)) {
-    frac <- if (frames == 1) 1 else (i - 1) / (frames - 1)
+  for (f in seq_len(frames)) {
+    frac <- if (frames == 1) 1 else (f - 1) / (frames - 1)
 
     vals <- c()
     for (i in seq_along(start_values)) {
@@ -124,7 +124,7 @@ generate_anim <- function(
 
     all_r <- c(all_r, vals)
     all_theta <- c(all_theta, theta)
-    all_frame <- c(all_frame, rep(i, length(theta)))
+    all_frame <- c(all_frame, rep(f, length(theta)))
   }
 
   df <- data.frame(
@@ -167,7 +167,7 @@ generate_anim <- function(
     fig,
     frame = 16.666666667,
     transition = 0,
-    redraw = TRUE,
+    redraw = TRUE
   )
 
   fig
