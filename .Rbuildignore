@@ -4,4 +4,4 @@
 ^.vscode$
 ^examples.r$
 ^cli.r$
-^plt.html$
+^out.html$

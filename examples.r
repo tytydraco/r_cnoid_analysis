@@ -15,4 +15,4 @@ fig4 <- graph_effects(
   regress_cnoids_to_effects(d9 = 100)
 )
 
-# htmlwidgets::saveWidget(fig, "plt.html", selfcontained = TRUE)
+# htmlwidgets::saveWidget(fig, "out.html", selfcontained = TRUE)
