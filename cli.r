@@ -50,7 +50,19 @@ option_list <- list(
 
 opt_parser <- OptionParser(
   option_list = option_list,
-  description = "Analyze and processess cnoid data."
+  description = "Analyze and processess cnoid data.",
+  epilogue = sprintf(
+    "List of cnoids: %s
+List of effects: %s
+
+Examples:
+./cli.r -t graph -m cnoids -v 100,0,0,0,0,0,0,0,0,0,0,0,0
+./cli.r -t anim -m cnoids -v 100,0,0,0,0,0,0,0,0,0,0,0,0 -V 0,100,0,0,0,0,0,0,0,0,0,0,0
+./cli.r -t graph -m effects -v 100,0,0,0,0,0
+./cli.r -t anim -m effects -v 100,0,0,0,0,0 -V 0,100,0,0,0,0",
+    paste(categories_cnoids, collapse = ", "),
+    paste(categories_effects, collapse = ", ")
+  )
 )
 
 opt <- parse_args(opt_parser)
