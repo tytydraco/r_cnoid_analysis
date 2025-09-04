@@ -36,7 +36,7 @@ normalize <- function(values) {
 #' Normalize a list of data by min-max method.
 #'
 #' @param values    The list of values.
-#' @param main      The minimum value.
+#' @param min       The minimum value.
 #' @param max       The maximum value.
 #' @return          The normalized list.
 #' @examples
