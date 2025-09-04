@@ -1,7 +1,6 @@
-#' Hemp strains with cannabinoid profile and
-#' effects profile.
+#' Hemp strains with cnoid profile and effects profile.
 #'
-#' @details The cannabinoid profile should be
+#' @details The cnoid profile should be
 #' percentages ranging from 0 to 100. The data
 #' came from https://flowercompany.com/, and the
 #' strain effect data came from scraped data from
@@ -330,6 +329,16 @@ all_strains <- list(
   )
 )
 
+#' The total number of cnoids in [all_strains].
+#'
+#' @export
+n_cnoids <- length(unname(unlist(all_strains[[1]]$cnoids)))
+
+#' The total number of effects in [all_strains].
+#'
+#' @export
+n_effects <- length(unname(unlist(all_strains[[1]]$effects)))
+
 #' Produce a matrix from the data in [all_strains].
 #'
 #' @return The matrix of all strains and effects.
@@ -359,8 +368,6 @@ build_all_strains_matrix <- function() {
     )
   )
 
-  print(mat)
-
   mat
 }
 
@@ -371,9 +378,6 @@ build_all_strains_matrix <- function() {
 #' @export
 build_cnoid_effect_correlation <- function() {
   strains_matrix <- build_all_strains_matrix()
-
-  n_cnoids <- length(unname(unlist(all_strains[[1]]$cnoids)))
-  n_effects <- length(unname(unlist(all_strains[[1]]$effects)))
 
   # Split all strains matrix into just cnoids and effects matricies.
   cnoid_mat <- strains_matrix[, 1:n_cnoids]

@@ -13,14 +13,14 @@ fig <- anim_effects(
   end_values = regress_cnoids_to_effects(80, 0, 5, 5, 10, 0)
 )
 
-fig <- anim_cnoids(
+fig2 <- anim_cnoids(
   frames = 120,
   start_values = regress_effects_to_cnoids(aroused = 100),
   end_values = regress_effects_to_cnoids(aroused = 50, happy = 50)
 )
 
 bounds <- true_bounds_cnoids()
-fig <- radar(
+fig3 <- radar(
   normalize_min_max(
     regress_effects_to_cnoids(
       energetic = 70,
