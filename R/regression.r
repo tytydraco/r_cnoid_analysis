@@ -1,3 +1,5 @@
+source("R/data.r")
+
 #' Helps cache the building of the correlation
 #' matrix.
 #'
