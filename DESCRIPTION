@@ -1,5 +1,5 @@
 Package: rcnoidanalysis
-Title:  R CNoid Analysis
+Title: R CNoid Analysis
 Version: 0.0.0.9000
 Authors@R: 
     person("Tyler", "Nijmeh", , "tylernij@gmail.com", role = c("aut", "cre"))
@@ -9,4 +9,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports: 
-    plotly
+    plotly,
+    stats

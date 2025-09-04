@@ -1,2 +1,6 @@
 ^rcnoidanalysis\.Rproj$
 ^\.Rproj\.user$
+^.idea$
+^.vscode$
+^main.r$
+^plt.html$

@@ -1,36 +1,20 @@
-source("R/anim.r")
+source("R/helpers.r")
 
-fig <- anim_effects(
-  frames = 120,
-  start_values = regress_cnoids_to_effects(
-    d9 = 100,
-    thcv = 0,
-    cbd = 0,
-    cbn = 0,
-    cbg = 0,
-    cbc = 0
-  ),
-  end_values = regress_cnoids_to_effects(80, 0, 5, 5, 10, 0)
+fig1 <- anim_cnoids(
+  240,
+  regress_effects_to_cnoids(aroused = 100),
+  regress_effects_to_cnoids(energetic = 100)
+)
+fig2 <- graph_cnoids(
+  regress_effects_to_cnoids(aroused = 100)
+)
+fig3 <- anim_effects(
+  240,
+  regress_cnoids_to_effects(d9 = 100),
+  regress_cnoids_to_effects(cbd = 100)
+)
+fig4 <- graph_effects(
+  regress_cnoids_to_effects(d9 = 100)
 )
 
-fig2 <- anim_cnoids(
-  frames = 120,
-  start_values = regress_effects_to_cnoids(aroused = 100),
-  end_values = regress_effects_to_cnoids(aroused = 50, happy = 50)
-)
-
-bounds <- true_bounds_cnoids()
-fig3 <- radar(
-  normalize_min_max(
-    regress_effects_to_cnoids(
-      energetic = 70,
-      relaxed = 30
-    ),
-    0,
-    1
-  ),
-  categories_cnoids,
-  c(0, 1)
-)
-
-htmlwidgets::saveWidget(fig, "plt.html", selfcontained = TRUE)
+# htmlwidgets::saveWidget(fig, "plt.html", selfcontained = TRUE)

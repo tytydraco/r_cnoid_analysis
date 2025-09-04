@@ -3,6 +3,7 @@
 #'
 #' @return A function that builds or returns the
 #'         correlation matrix.
+#'
 #' @export
 make_cached_correl_matrix <- function() {
   cache <- NULL
@@ -19,6 +20,7 @@ make_cached_correl_matrix <- function() {
 #' Gives the cached correlation matrix.
 #'
 #' @return The cached correlation matrix.
+#'
 #' @export
 get_cached_correl_matrix <- make_cached_correl_matrix()
 

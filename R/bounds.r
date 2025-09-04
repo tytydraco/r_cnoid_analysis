@@ -1,4 +1,4 @@
-source("R/values_gen.r")
+source("R/regression.r")
 
 #' Finds the true bounds for use with graphs
 #' for the cnoids.

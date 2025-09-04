@@ -9,9 +9,9 @@ normalize_min_max(values, min, max)
 \arguments{
 \item{values}{The list of values.}
 
-\item{max}{The maximum value.}
+\item{min}{The minimum value.}
 
-\item{main}{The minimum value.}
+\item{max}{The maximum value.}
 }
 \value{
 \if{html}{\out{<div class="sourceCode">}}\preformatted{     The normalized list.
