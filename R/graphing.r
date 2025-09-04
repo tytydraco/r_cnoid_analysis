@@ -1,8 +1,3 @@
-source("R/const.r")
-source("R/regression.r")
-source("R/util.r")
-source("R/bounds.r")
-
 #' Generates a radar graph.
 #'
 #' @param values      The y-coordinates.

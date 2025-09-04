@@ -1,5 +1,3 @@
-source("R/helpers.r")
-
 fig1 <- anim_cnoids(
   240,
   regress_effects_to_cnoids(aroused = 100),

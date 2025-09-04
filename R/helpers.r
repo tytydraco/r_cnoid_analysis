@@ -1,8 +1,3 @@
-source("R/regression.r")
-source("R/graphing.r")
-source("R/const.r")
-source("R/util.r")
-
 #' Generate a radar animation of the effects between two cnoid
 #' profiles.
 #'
