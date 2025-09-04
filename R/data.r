@@ -407,5 +407,3 @@ build_cnoid_effect_correlation <- function() {
 
   correl_matrix
 }
-
-build_cnoid_effect_correlation()
