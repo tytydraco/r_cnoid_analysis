@@ -19,4 +19,18 @@ fig <- anim_cnoids(
   end_values = regress_effects_to_cnoids(aroused = 50, happy = 50)
 )
 
+bounds <- true_bounds_cnoids()
+fig <- radar(
+  normalize_min_max(
+    regress_effects_to_cnoids(
+      energetic = 70,
+      relaxed = 30
+    ),
+    0,
+    1
+  ),
+  categories_cnoids,
+  c(0, 1)
+)
+
 htmlwidgets::saveWidget(fig, "plt.html", selfcontained = TRUE)

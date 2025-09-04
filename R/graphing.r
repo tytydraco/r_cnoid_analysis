@@ -30,7 +30,7 @@ radar <- function(values, categories, bounds) {
   fig <- plotly::plot_ly(
     line = list(shape = "spline"),
     type = "scatterpolar",
-    mode = "lines",
+    mode = "lines+markers",
     r = values,
     theta = categories,
     fill = "toself",
@@ -121,7 +121,7 @@ radar_anim <- function(
   fig <- plotly::plot_ly(
     data = df,
     type = "scatterpolar",
-    mode = "lines",
+    mode = "lines+markers",
     r = ~r,
     theta = ~theta,
     frame = ~frame,
